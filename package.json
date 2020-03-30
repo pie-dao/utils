@@ -15,6 +15,7 @@
     "bignumber.js": "^9.0.0",
     "ethers": "^4.0.46",
     "is-plain-object": "^3.0.0",
+    "promise.allsettled": "^1.0.2",
     "regenerator-runtime": "^0.13.5"
   },
   "devDependencies": {

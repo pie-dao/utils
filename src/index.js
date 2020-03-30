@@ -1,4 +1,5 @@
 import 'regenerator-runtime/runtime';
+import allSettled from 'promise.allsettled';
 
 import push from './utils/chains';
 
@@ -35,6 +36,8 @@ import {
   validateIsSupportedNetworkId as isSupportedNetworkIdValidation,
   validateIsTransactionHash as isTransactionHashValidation,
 } from './utils/validations';
+
+allSettled.shim();
 
 export const amountFormatter = amountFormatterVisual;
 export const chain = push;
