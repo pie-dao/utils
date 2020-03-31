@@ -8,7 +8,6 @@ const noop = () => undefined;
 
 const newLink = (func, ident, errorCallback = noop) => new Promise((resolve) => {
   const pid = setTimeout(() => {
-    console.error(`${prefix}: link timeout error (${ident})`);
     errorCallback(new TimeoutError(`${prefix}: process ${ident} took longer than ${TIMEOUT}ms`));
     resolve();
   }, TIMEOUT);
