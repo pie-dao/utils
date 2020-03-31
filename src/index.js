@@ -54,6 +54,7 @@ export const isSet = typeIsSet;
 export const isString = typeIsString;
 export const isSupportedNetworkId = typeIsSupportedNetworkId;
 export const isTransactionHash = typeIsTransactionHash;
+export const nullAddress = '0x0000000000000000000000000000000000000000';
 export const shortenAddress = shortenAddressVisual;
 export const validateIsAddress = isAddressValidation;
 export const validateIsArray = isArrayValidation;

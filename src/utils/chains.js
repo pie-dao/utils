@@ -4,7 +4,9 @@ const prefix = '@pie-dao/utils - chain';
 
 class TimeoutError extends Error {}
 
-const newLink = (func, ident, errorCallback = () => {}) => new Promise((resolve) => {
+const noop = () => undefined;
+
+const newLink = (func, ident, errorCallback = noop) => new Promise((resolve) => {
   try {
     const pid = setTimeout(() => {
       console.error(`${prefix}: link timeout error (${ident})`);
@@ -15,11 +17,12 @@ const newLink = (func, ident, errorCallback = () => {}) => new Promise((resolve)
     func(() => {
       clearTimeout(pid);
       resolve();
-      console.log(`${prefix}: link resolved (${ident})`);
     });
   } catch (e) {
     console.error(`${prefix}: link error`, e);
     errorCallback(e);
+    clearTimeout(pid);
+    resolve();
   }
 });
 
