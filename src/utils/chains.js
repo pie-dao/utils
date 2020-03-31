@@ -8,21 +8,20 @@ const noop = () => undefined;
 
 const newLink = (func, ident, errorCallback = noop) => new Promise((resolve) => {
   const pid = setTimeout(() => {
-    errorCallback(new TimeoutError(`${prefix}: process ${ident} took longer than ${TIMEOUT}ms`));
     resolve();
+    errorCallback(new TimeoutError(`${prefix}: process ${ident} took longer than ${TIMEOUT}ms`));
   }, TIMEOUT);
 
-  try {
-    func(() => {
-      clearTimeout(pid);
-      resolve();
-    });
-  } catch (e) {
-    console.error(`${prefix}: link error`, e);
-    errorCallback(e);
+  const callback = () => {
     clearTimeout(pid);
     resolve();
-  }
+  };
+
+  Promise.resolve(func(callback)).then(resolve).catch((e) => {
+    callback();
+    errorCallback(e);
+    console.error(`${prefix}: link error`, e);
+  });
 });
 
 const push = (key, func, ident, errorCallback) => {
